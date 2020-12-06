@@ -1,3 +1,9 @@
+<!DOCTYPE = html>
+<meta charset-UTF8>
+    <head>
+        <h1><p>Besvarelse på modul 9-1</p></h1>
+
+
 <?php
 /* Skjema sendt?*/
 if ( isset( $_POST['reg-send'] ) )
@@ -6,7 +12,7 @@ if ( isset( $_POST['reg-send'] ) )
     $opMessage = array();
 
     // filopplastingen
-    if( is_uploaded_file( $_FILES['photo']['tmp_name'] ) ) //superglobalt array som heter $_FILES
+    if( is_uploaded_file( $_FILES['photo']['tmp_name'] ) ) //superglobalt array som heter $_FILES, brukes til å uploade fileer
     {
        // print_r( $_FILES ); hvis man har lyst til å se hva som ligger inne i $_FILES arrayet
         $fileType = $_FILES['photo']['type'];
@@ -17,11 +23,11 @@ if ( isset( $_POST['reg-send'] ) )
                             'image/jpg',
                             'image/png' );
 
-        $maxFileSize = 2100000; 
+        $maxFileSize = 2100000; //setter max grense på tillat filstørrelse 
         $dir = '../';
 
-        // Finn suffix
-        switch($fileType)
+        // Finn suffix, setter hvilke filtyper som godtas
+        switch($fileType) 
         {
             case 'image/jpeg':
                 $suffix = 'jpg';
@@ -66,6 +72,21 @@ if ( isset( $_POST['reg-send'] ) )
             if ( $uploadedFile )
             {
                 $opMessage[] = "Filen er lastet opp";
+            ?>
+            <table border ="1">
+        <tr>
+                <th>ID</th>
+                <th>Filtype</th>
+        </tr>
+        <tr>
+                <td><?php echo $uploadedFile, $i++;?></td>
+                <td><?php echo $fileType;?></td>
+        </tr>
+        <?php  
+            $i > 0;
+            $uploadedFile = "Dette er et bilde";
+            echo 'Filtypen på bildet er . ' . $fileType . '.';
+
             }
             else
             {
@@ -90,7 +111,7 @@ if ( isset( $_POST['reg-send'] ) )
 <html>
 <head>
 <meta charset="utf-8">
-<title>Løsningsforslag L9-1</title>
+<title>Modul 9 oppgave 1</title>
 </head>
 
 <body>
@@ -105,5 +126,6 @@ if ( isset( $_POST['reg-send'] ) )
             <input type="submit" name='reg-send' class="button" value="Last opp foto">
         </div>
     </form>
+    <h3>Hei på deg</h3>
 </body>
 </html>

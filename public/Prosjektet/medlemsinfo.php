@@ -12,32 +12,29 @@ if ( $tilkobling->connect_error )
     die('Tilkoblingen til databasen feilet. Vennligst forsøk igjen senere.');
     exit();
 }
-date_default_timezone_set('UTC');
+
 // Lager SQL-spørringens struktur
-$sql = "SELECT * FROM Aktiviteter WHERE Startdato >= CURRENT_DATE";
+$sql = "SELECT * FROM medlem"; /*WHERE Brukernavn = ?"; */
 
 // Steg 1: forbereder spørringen
 $stmt = $tilkobling->prepare( $sql );
 
 // Steg 2: kobler parametrene våre med SQL-spørringens struktur
-$stmt->bind_param( "issii", $ID, $Aktivitet, $Ansvarlig, $Startdato, $Sluttdato );
+// $stmt->bind_param( "s", $Brukernavn); Trenger ikke denne, denne gjør også at vi får opp en feilmelding
+// når det kommer til antall parametre og antall variabler 
 
 // Steg 3: setter parametre, utfører spørringen og henter resultatet
-$ID = "ID";
-$Aktivitet = "Aktivitet";
-$Ansvarlig = "Ansvarlig";
-$Startdato = "Startdato";
-$Sluttdato = "Sluttdato";
+$Brukernavn = "Brukernavn";
 $stmt->execute();
 $resultat = $stmt->get_result();
 ?>
 <html>
     <head>
-        <title>Aktivitet</title>
+        <title>Medlemmer</title>
     </head>
 
     <body>
-    <!-- Lager en tabell som viser aktivitetene i databasen -->
+    <!-- Lager en tabell som viser medlemmene i databasen -->
     <table>
     <style>
 table {
@@ -58,10 +55,17 @@ tr:nth-child(even) {
 </style>
     <tr>
         <th>ID</th>
-        <th>Aktivitet</th>
-        <th>Ansvarlig</th>
-        <th>Startdato</th>
-        <th>Sluttdato</th>
+        <th>Fornavn</th>
+        <th>Etternavn</th>
+        <th>Adresse</th>
+        <th>Postnummer</th>
+        <th>Poststed</th>
+        <th>Mobilnummer</th>
+        <th>Epost</th>
+        <th>Fodselsdato</th>
+        <th>Kjonn</th>
+        <th>Brukernavn</th>
+        <th>Passord</th>
         
     </tr>
     <?php 
@@ -72,11 +76,17 @@ tr:nth-child(even) {
     ?>
     <tr>
         <td><?php echo $row['ID']; ?></td>
-        <td><?php echo $row['Aktivitet']; ?></td>
-        <td><?php echo $row['Ansvarlig']; ?></td>
-        <td><?php echo $row['Startdato']; ?></td>
-        <td><?php echo $row['Sluttdato']; ?></td>
-     
+        <td><?php echo $row['Fornavn']; ?></td>
+        <td><?php echo $row['Etternavn']; ?></td>
+        <td><?php echo $row['Adresse']; ?></td>
+        <td><?php echo $row['Postnummer']; ?></td>
+        <td><?php echo $row['Poststed']; ?></td>
+        <td><?php echo $row['Mobilnummer']; ?></td>
+        <td><?php echo $row['Epost']; ?></td>
+        <td><?php echo $row['Fodselsdato']; ?></td>
+        <td><?php echo $row['Kjonn']; ?></td>
+        <td><?php echo $row['Brukernavn']; ?></td>
+        <td><?php echo $row['Passord']; ?></td>
     </tr>
     <?php
     }

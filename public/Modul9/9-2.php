@@ -1,3 +1,4 @@
+
 <?php
 $dir = "../public/"; // denne viser katalogen vi befinner i akkurat nå. det som er før skråstreken er der vi er nå. 
 $dirRef = opendir( $dir );
@@ -11,10 +12,13 @@ while( $next = readdir( $dirRef ) )
 } 
 closedir( $dirRef );
 
-/* ./ = samme katalog
+/*Hvordan bevege seg mellom kataloger: 
+
+./ = samme katalog
 ../ = opp en katalog
 ../filer = opp en katalog og inn en katalog "filer"
 ../../ = opp to kataloger
 ../../filer = opp to kataloger og inn i filer
+
 */
 ?>
