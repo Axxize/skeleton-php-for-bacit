@@ -62,7 +62,7 @@
     <br>
             <label class="col-md-4 control-label" for="email">Tlf</label>
             <div class="col-md-5">
-            <input id="tlf" name ="tlf" type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" value="<?php echo 
+            <input id="tlf" name ="tlf" type="tel"  value="<?php echo 
             $thisMember['tlf'];?>" class="form-control input-md" required="">
      <br>
             <label class="col-md-4 control-label" for="birthday">Medlem siden dato</label>

@@ -14,18 +14,20 @@ if ( $tilkobling->connect_error )
 }
 date_default_timezone_set('UTC');
 // Lager SQL-spørringens struktur
-$sql = "SELECT * FROM Aktiviteter WHERE Startdato > ? ORDER BY ? DESC LIMIT ?";
+$sql = "SELECT * FROM Aktiviteter WHERE Startdato >= CURRENT_DATE";
 
 // Steg 1: forbereder spørringen
 $stmt = $tilkobling->prepare( $sql );
 
 // Steg 2: kobler parametrene våre med SQL-spørringens struktur
-$stmt->bind_param( "isi", $startdato, $sortering, $begrensning );
+$stmt->bind_param( "issii", $ID, $Aktivitet, $Ansvarlig, $Startdato, $Sluttdato );
 
 // Steg 3: setter parametre, utfører spørringen og henter resultatet
-$startdato = date("d.m.y");
-$sortering = "startdato";
-$begrensning = 10;
+$ID = "ID";
+$Aktivitet = "Aktivitet";
+$Ansvarlig = "Ansvarlig";
+$Startdato = "Startdato";
+$Sluttdato = "Sluttdato";
 $stmt->execute();
 $resultat = $stmt->get_result();
 ?>

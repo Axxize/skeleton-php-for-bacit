@@ -24,7 +24,7 @@ var_dump($stmt);
 $stmt->bind_param( "ssi", $interesse1, $sortering, $begrensning );
 
 // Steg 3: setter parametre, utfører spørringen og henter resultatet
-$interesse1 = "Golf";
+$interesse1 = $_POST['handball'];
 $sortering = "etternavn";
 $begrensning = 10;
 $stmt->execute();
@@ -119,7 +119,24 @@ $stmt = $tilkobling->prepare( $sql );
 $stmt->bind_param( "ssi", $interesse2, $sortering, $begrensning );
 
 // Steg 3: setter parametre, utfører spørringen og henter resultatet
-$interesse2 = "Golf";
+
+?>
+<form action="modul7-5.php" method="post">
+
+<select name='interest'>
+    <option value="">Select...</option>
+    <option value="<?$_POST['golf']?>">Golf</option>
+    <option value="<?$_POST['handball']?>">Håndball</option>
+
+</select>
+
+</form>
+
+
+<?php
+
+
+$interesse2 = $_POST['golf'];
 $sortering = "etternavn";
 $begrensning = 10;
 $stmt->execute();

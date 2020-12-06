@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <body>
-    <form method= "post" action=<?php echo $_SERVER['PHP_SELF'];?>>
+    <form method= "post" action=<?php echo $_SERVER['PHP_SELF'];?>> <!--Lager her et form hvor man skriver inn informasjon-->
         <label for="fornavn">Fornavn</label><br>
         <input type="text" id="fornavn" name="fornavn" value="<?php if(isset($_POST['fornavn'])){echo $_POST['fornavn'];
         }?>"><br>
@@ -15,7 +15,7 @@
         }?>"><br>
 
         <label for="telefonnummer">Telefonnummer</label><br>
-        <input type="tel" id="telefonnummer" name="telefonnummer" placeholder="123 45 678" value="<?php if(isset($_POST['telefonnummer'])){echo $_POST['telefonnummer'];
+        <input type="tel" id="telefonnummer" name="telefonnummer" placeholder="123 45 678" pattern="[0-9]{3}[0-9]{2}[0-9value="<?php if(isset($_POST['telefonnummer'])){echo $_POST['telefonnummer'];
         }?>"><br>
 
         <label for="epost">Epost</label><br>
@@ -43,7 +43,7 @@
         }?>"><br>
 
         <label for="kontingentstatus">Kontingentstatus</label><br>
-        <input type="text" id="kontingentstatus" name="kontingentstsatus" value="<?php if(isset($_POST['kontingenstatus'])){echo $_POST['kontingenstatus'];
+        <input type="text" id="kontingentstatus" name="kontingentstatus" value="<?php if(isset($_POST['kontingenstatus'])){echo $_POST['kontingenstatus'];
         }?>"><br>
 
         <input type="submit" value="submit" name="submit">
@@ -52,14 +52,14 @@
     <?php
     if(isset($_POST['submit']))
         {
-            $melding = array();
+            $melding = array(); //dersom all data er fylt inn skal 
 
             $info = array('Fornavn: ' => $_POST['fornavn'], 'Etternavn: ' => $_POST['etternavn'], 'Adresse: ' => $_POST['adresse'], 
             'Telefonnummer: ' => $_POST['telefonnummer'], 'Epost: ' => $_POST['epost'], 'Fødselsdato: ' => $_POST['fødselsdato'],
             'Kjønn: ' => $_POST['kjønn'], 'Interesser: ' => $_POST['interesser'], 'Kursaktiviteter: ' => $_POST['kursaktiviteter'],
             'Medlem siden dato: ' => $_POST['medlemsidendato'], 'Kontingentstatus: ' => $_POST['kontingentstatus']);
 
-            if(empty($_POST['fornavn']))
+            if(empty($_POST['fornavn'])) //Dersom noe informasjon mangler vil det poppe opp en feilmelding som refererer til hva som mangler
             {
                 $melding[] = 'Du må fylle inn fornavn';
             }
@@ -103,30 +103,26 @@
             {
                 $melding[] = 'Du må fylle inn kontingentstatus';
             }
-        } 
-        // hvis ingen feilmeldinger, legg inn i databasen INSERT_INTO 
-        
-        
-        //det kommende er et forsøk på å inkludere 4-5 
-            $medlem = implode('<br />', array_map(
+
+            $medlem = implode('<br />', array_map( //implode returnerer en string fra arrayet, og array_map for å returnere ønsket innhold fra arrayet
                 function ($v, $k) { return sprintf("%s %s", $k, $v); },
                 $info,
                 array_keys($info)
             ));
 
-            if(empty($melding))
+            if(empty($melding)) //Dersom det ikke er noen mangler vil det bli skrevet ut hvilken informasjon som er blitt lagt inn i form
             {
                 echo 'Det er registrert følgende informasjon om deg: <br />' . $medlem;
             }
 
             else
             {
-                for($i =0; $i <count($melding); $i++)
+                for($i =0; $i <count($melding); $i++) //Er det mangler blir $melding sendt
                 {
-                    echo $melding[$i] . '<br>';
+                    echo $melding[$i] . '<br>'; 
                 }
             }
-        
+        }
     ?>
     </body>
-</html> 
+    </html>
